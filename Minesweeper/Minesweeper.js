@@ -82,3 +82,50 @@ export function markTile(tile) {
     tile.status = TILE_STATUSES.MARKED;
   }
 }
+
+export function revealTile(board, tile) {
+  if (tile.status !== TILE_STATUSES.HIDDEN) {
+    return; // don't reveal the tiles that are already revealed or marked .
+  }
+
+  if (tile.mine) {
+    tile.status = TILE_STATUSES.MINE;
+    return;
+  }
+
+  tile.status = TILE_STATUSES.NUMBER;
+  const adjacentTiles = nearbyTiles(board, tile);
+  const mines = adjacentTiles.filter((t) => t.mine);
+  if (mines.length === 0) {
+    // If there are no mines , we recursively reveal all the nearbuy tiles
+
+    adjacentTiles.forEach((tile) => {
+      revealTile(board, tile);
+    });
+  } else {
+    tile.element.textContent = mines.length;
+  }
+}
+
+function nearbyTiles(board, { x, y }) {
+  const tiles = [];
+
+  for (let xoffset = -1; xoffset <= 1; xoffset++) {
+    for (let yoffset = -1; yoffset <= 1; yoffset++) {
+      if (isValid(x + xoffset, y + yoffset, board.length)) {
+        const tile = board[x + xoffset][y + yoffset];
+
+        tiles.push(tile);
+      }
+    }
+  }
+
+  return tiles;
+}
+
+// this is to make sure we dont't check for out of board items in our nearby function
+function isValid(x, y, sz) {
+  if (x < 0 || y < 0 || x >= sz || y >= sz) return false;
+
+  return true;
+}

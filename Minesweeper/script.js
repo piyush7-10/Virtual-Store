@@ -1,6 +1,11 @@
 // DISPLAY /UI
 
-import { createBoard, markTile, TILE_STATUSES } from "./Minesweeper.js";
+import {
+  createBoard,
+  markTile,
+  revealTile,
+  TILE_STATUSES,
+} from "./Minesweeper.js";
 
 const BOARD_SIZE = 10;
 
@@ -15,7 +20,9 @@ const boardElement = document.querySelector(".board");
 board.forEach((row) => {
   row.forEach((tile) => {
     boardElement.append(tile.element);
-    tile.element.addEventListener("click", () => {});
+    tile.element.addEventListener("click", () => {
+      revealTile(board, tile);
+    });
 
     tile.element.addEventListener("contextmenu", (e) => {
       e.preventDefault();
