@@ -1,6 +1,6 @@
 // GAME LOGIC
 
-const TILE_STATUSES = {
+export const TILE_STATUSES = {
   HIDDEN: "hidden",
   MINE: "mine",
   NUMBER: "number",
@@ -10,8 +10,6 @@ const TILE_STATUSES = {
 export function createBoard(boardSize, numberofMines) {
   const board = [];
   const minePositions = getMinePositions(boardSize, numberofMines);
-
-  console.log(minePositions);
 
   for (let x = 0; x < boardSize; x++) {
     const row = [];
@@ -64,4 +62,23 @@ function positionMatch(a, b) {
 
 function randomNumber(size) {
   return Math.floor(Math.random() * size);
+}
+
+export function markTile(tile) {
+  // Checking if the tile is hidden and marked .
+
+  // If tile is not hidden , and also not marked then it is either revealed or a mine .
+
+  if (
+    tile.status != TILE_STATUSES.HIDDEN &&
+    tile.status != TILE_STATUSES.MARKED
+  ) {
+    return;
+  }
+
+  if (tile.status === TILE_STATUSES.MARKED) {
+    tile.status = TILE_STATUSES.HIDDEN;
+  } else {
+    tile.status = TILE_STATUSES.MARKED;
+  }
 }
