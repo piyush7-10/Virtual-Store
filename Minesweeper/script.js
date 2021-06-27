@@ -17,6 +17,11 @@ const boardElement = document.querySelector(".board");
 board.forEach((row) => {
   row.forEach((tile) => {
     boardElement.append(tile.element);
+    tile.element.addEventListener("click", () => {});
+
+    tile.element.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+    });
   });
 });
 
