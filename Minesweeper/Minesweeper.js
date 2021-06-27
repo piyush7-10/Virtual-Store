@@ -129,3 +129,26 @@ function isValid(x, y, sz) {
 
   return true;
 }
+
+// Every single tile that's not revealed is a mine , then we win the game
+export function checkWin(board) {
+  return board.every((row) => {
+    return row.every((tile) => {
+      return (
+        tile.status === TILE_STATUSES.NUMBER ||
+        (tile.mine &&
+          (tile.status === TILE_STATUSES.MARKED ||
+            tile.status === TILE_STATUSES.HIDDEN))
+      );
+    });
+  });
+}
+
+// Check if we reveal a mine or not
+export function checkLoose(board) {
+  return board.some((row) => {
+    return row.some((tile) => {
+      return tile.status === TILE_STATUSES.MINE;
+    });
+  });
+}
