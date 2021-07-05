@@ -488,6 +488,11 @@
   transition: 0.3s ease-in;
 }
 
+.page__link a {
+  text-decoration: none;
+  color: #fff;
+}
+
 .services__card:nth-child(2) {
   background: #1fa2ff; /* fallback for old browsers */
   background: -webkit-linear-gradient(
