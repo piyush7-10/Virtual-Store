@@ -76,4 +76,5 @@ function checkGameEnd() {
 
 function stopProp(e) {
   e.stopImmediatePropagation(); // way to stop a user from playing further
+  alert("Refresh the Page to Restart the Game ");
 }
